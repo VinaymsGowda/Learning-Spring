@@ -1,9 +1,7 @@
 package com.helloworld.demo.Bakery;
 
-public interface ICake {
-
+public interface IFrosting {
     public String getFrostingType();
 
-    public String getSyrupType();
 
 }

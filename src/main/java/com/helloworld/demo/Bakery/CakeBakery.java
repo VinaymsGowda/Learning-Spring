@@ -1,5 +1,6 @@
 package com.helloworld.demo.Bakery;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -18,7 +19,16 @@ function of the CakeBaker class.
 @Component
 public class CakeBakery {
 
-    public void bakeCake(ICake cake){
-        System.out.println("Preparing cake with "+cake.getFrostingType()+" And "+cake.getSyrupType());
+
+    public IFrosting frosting;
+
+    public ISyrup syrup;
+
+    public CakeBakery(IFrosting frosting,ISyrup syrup){
+        this.frosting=frosting;
+        this.syrup=syrup;
+    }
+    public void bakeCake(){
+        System.out.println("Preparing cake with "+frosting.getFrostingType()+" And "+syrup.getSyrupType());
     }
 }
