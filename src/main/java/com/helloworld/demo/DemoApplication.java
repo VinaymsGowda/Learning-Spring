@@ -1,8 +1,13 @@
 package com.helloworld.demo;
+import com.helloworld.demo.Bakery.CakeBakery;
+import com.helloworld.demo.Bakery.ChocolateCake;
+import com.helloworld.demo.Bakery.ICake;
+import com.helloworld.demo.Bakery.StrawberryCake;
 import com.helloworld.demo.DependencyInjection.EmailNotificationService;
 import com.helloworld.demo.DependencyInjection.INotification;
 import com.helloworld.demo.DependencyInjection.SMSNotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -19,14 +24,22 @@ public class DemoApplication implements CommandLineRunner {
 	PaymentService ps;
 //	@Autowired
 	final INotification notification;
+	CakeBakery cb;
+
+	ICake cake;
+
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 
 	}
 
 	// Constructor Dependency Injection
-	public DemoApplication(INotification notification) {
+	public DemoApplication(INotification notification, CakeBakery cb,@Qualifier("strawberry") ICake cake) {
 		this.notification = notification;
+		this.cb=cb;
+		this.cake=cake;
+
+
 	}
 
 	@GetMapping("/hello")
@@ -49,6 +62,10 @@ public class DemoApplication implements CommandLineRunner {
 			*/
 
 			notification.message("Hii");
+
+			cb.bakeCake(cake);
+
+
 		}
 		catch (Exception e){
 			System.out.println("Exception occured"+e);
